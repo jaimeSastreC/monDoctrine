@@ -1,0 +1,26 @@
+{% extends "@App/base.html.twig" %}
+
+{% block title %}Affichage Auteur{% endblock %}
+
+
+{#{% block contenu %}{{ dump(auteur) }}{% endblock %}#}
+
+{% block contenu %}<h1>Affichage de l'Auteur</h1>{% endblock %}
+
+{% block unAuteur %}
+    {# affiche un auteur #}
+
+        <p>
+            auteur : {{ auteur.nom }}
+        </p>
+        <p>
+            {# utilisation du filtre 'date' de Twig sur l'attribut date de auteur #}
+            date de naissance: {{ auteur.dateNaissance|date("m/d/Y")  }} &nbsp
+            date de décès: {{ auteur.dateMort|date("m/d/Y")}}
+        </p>
+        <p>
+            {{ auteur.biographie }}
+        </p>
+        <hr>
+
+{% endblock %}

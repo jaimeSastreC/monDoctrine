@@ -39,13 +39,36 @@ class GeneralController extends Controller
     public function auteursAppelAction(){
         // cherche tous les auteur avec instance de getDoctrine -> méthode get Repository
         // puis ->findAll  tous les livres
-        //var_dump('test'); die;
+
         $repository = $this->getDoctrine()->getRepository(Auteur::class);
+
+        //appel de l'ensemble des auteurs
         $auteurs = $repository->findAll();
-        return $this->render("@App/Pages/accueil.html.twig",
+
+        //retourne la page html auteurs en utiliasnt le twig auteur.html.twig
+        return $this->render("@App/Pages/auteurs.html.twig",
             [
                 'auteurs' => $auteurs
             ]);
-        //var_dump($auteurs); die;
+    }
+
+    /**
+     * @Route("/auteur/{id}", name="auteur" )
+     * */
+    // le placeholder {id} est utilisé comme paramètre $id pour la requete doctrine
+    public function auteurAppelAction($id){
+        // cherche un auteur avec instance de getDoctrine -> méthode get Repository
+        // puis ->find de un livre selon $id
+
+        $repository = $this->getDoctrine()->getRepository(Auteur::class);
+
+        //choix de l'auteur avec la méthode find et la variable $id
+        $auteur = $repository->find($id);
+
+        //retourne la page html auteur en utiliasnt le twig auteur.html.twig
+        return $this->render("@App/Pages/auteur.html.twig",
+            [
+                'auteur' => $auteur
+            ]);
     }
 }

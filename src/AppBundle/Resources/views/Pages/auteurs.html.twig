@@ -1,0 +1,30 @@
+{% extends "@App/base.html.twig" %}
+
+{% block title %}Affichage Livres{% endblock %}
+
+{#{% block contenu %}{{ dump(auteurs) }}{% endblock %}#}
+
+{% block contenu %}<h1>Liste des Auteurs</h1>{% endblock %}
+
+{% block lesAuteurs %}
+    {# Liste les auteurs avec une boucle for #}
+    {% for auteur in auteurs %}
+
+        {# création du chemin href vers la page auteur avec la méthode path et le placeholder 'id'
+        incrémenté par l'attribut id de auteur #}
+        <a href="{{ path('auteur', {'id': auteur.id}) }}">
+           <p>
+               auteur : {{ auteur.nom }}
+           </p>
+            <p>
+                {# utilisation du filtre 'date' de Twig sur l'attribut date de auteur #}
+                date de naissance: {{ auteur.dateNaissance|date("m/d/Y")}} &nbsp
+                date de décès: {{ auteur.dateMort|date("m/d/Y")}}
+            </p>
+            <p>
+                {{ auteur.biographie }}
+            </p>
+            <hr>
+        </a>
+    {% endfor %}
+{% endblock %}
