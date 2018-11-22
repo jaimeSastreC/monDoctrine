@@ -1,20 +1,21 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {#bootstrap#}
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    {#lien feuille style assets#}
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
-    <title>{% block title %}Doctrine{% endblock %}</title>
-</head>
-<body>
-<header>
-    <h1>Doctrine</h1>
-</header>
+{% extends "@App/base.html.twig" %}
 
-</body>
-</html>
+{% block title %}Affichage Livres{% endblock %}
+
+{% block contenu %}{{ dump(auteurs) }}{% endblock %}
+
+{% block lesAuteurs %}
+    {# Liste les auteurs #}
+    {% for auteur in auteurs %}
+       <p>
+           auteur : {{ auteur.nom }}
+       </p>
+        <p>
+            date de naissance: {{ auteur.dateNaissance|date("m/d/Y")}}    date de décès: {{ auteur.dateMort|date("m/d/Y")}}
+        </p>
+        <p>
+            {{ auteur.biographie }}
+        </p>
+        <hr>
+    {% endfor %}
+{% endblock %}
