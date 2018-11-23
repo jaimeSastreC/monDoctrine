@@ -6,7 +6,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AuteurRepository")
  * @ORM\Table(name="auteur")
  */
 class Auteur
@@ -42,6 +42,11 @@ class Auteur
     private $biographie;
 
     /**
+     * @ORM\Column(type="string", length=100, name="pays")
+     */
+    private $pays;
+
+    /**
      * @return mixed
      */
     public function getId()
@@ -71,6 +76,14 @@ class Auteur
     public function getDateNaissance()
     {
         return $this->dateNaissance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPays()
+    {
+        return $this->pays;
     }
 
     /**
@@ -111,6 +124,16 @@ class Auteur
     public function setBiographie($biographie)
     {
         $this->biographie = $biographie;
+    }
+
+
+
+    /**
+     * @param mixed $pays
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
     }
 
 }

@@ -4,9 +4,10 @@
 
 {#{% block contenu %}{{ dump(auteurs) }}{% endblock %}#}
 
-{% block contenu %}<h1>Liste des Auteurs</h1>{% endblock %}
-
-{% block lesAuteurs %}
+{% block contenu %}<h1>Liste des Auteurs</h1>
+    <div class="container">
+<div class="row">
+<div class="text-align-center">
     {# Liste les auteurs avec une boucle for #}
     {% for auteur in auteurs %}
 
@@ -18,13 +19,21 @@
            </p>
             <p>
                 {# utilisation du filtre 'date' de Twig sur l'attribut date de auteur #}
-                date de naissance: {{ auteur.dateNaissance|date("m/d/Y")}} &nbsp
-                date de décès: {{ auteur.dateMort|date("m/d/Y")}}
+                date de naissance: {{ auteur.dateNaissance|date("d/m/Y")}} &nbsp
+                date de décès: {{ auteur.dateMort|date("d/m/Y")}}
             </p>
             <p>
                 {{ auteur.biographie }}
             </p>
+            <p>
+                <a href="{{ path('country', {'country': auteur.pays }) }}"> {{ auteur.pays }}</a>
+            </p>
             <hr>
         </a>
+
     {% endfor %}
+    </div>
+</div>
+</div>
+    </div>
 {% endblock %}
