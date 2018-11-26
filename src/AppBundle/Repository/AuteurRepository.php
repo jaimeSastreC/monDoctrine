@@ -9,7 +9,7 @@ namespace AppBundle\Repository;
  */
 class AuteurRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getBooksByCountry($country){
+    public function getAuteurByCountry($country){
 
         //var_dump('hello genre'); die;
         $queryBuilder = $this->createQueryBuilder('a');
@@ -23,6 +23,7 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
+//recherche par contenu dans biographie !!!!!!!!!!!!!!
     public function getNameBiography($name){
         //crée objet constructeur de requete sur table l
         $queryBuilder = $this->createQueryBuilder('a');

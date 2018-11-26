@@ -22,7 +22,7 @@ class AdministrateurController extends Controller
 {
 
     /**
-     * @Route("/auteurs-administrateur" , name="auteurs_administrateur")
+     * @Route("admin_auteurs" , name="admin_auteurs")
      */
     public function listAuteursAction(){
         // cherche tous les auteur avec instance de getDoctrine -> méthode get Repository
@@ -41,7 +41,7 @@ class AdministrateurController extends Controller
     }
 
     /**
-     * @Route("/auteurs-administrateur/suprimmerauteur/{id}", name="auteur_supp")
+     * @Route("/admin/suprimmer_auteur/{id}", name="admin_auteur_supp")
      */
     public function supprAuteurAction($id){
 
@@ -56,6 +56,36 @@ class AdministrateurController extends Controller
         $entityManager->flush();
 
         // Important : redirige vers la route demandée, avec name = 'auteurs_administrateur'
-        return $this->redirectToRoute('auteurs_administrateur');
+        return $this->redirectToRoute('admin_auteurs');
+    }
+
+    /**
+     * @Route("/admin/modifier_livre/{id}", name="admin_auteurs")
+     */
+    public function modifierLivre($id){
+        // cherche un livre avec instance de getDoctrine -> méthode get Repository
+        // puis ->find( un livre )
+        $repository = $this->getDoctrine()->getRepository(Livre::class);
+        $livre = $repository->find($id);
+
+        // j'utilise les setters de mon entité pour y ajouter la valeur souhaité, attention champs obligatoires doivent être présents
+        $livre->setTitre("Titre modifié");
+        $livre->setAuteur("Nouvel Auteur");
+        $livre->setPages(700);
+        $livre->setGenre("Polar");
+        $livre->setFormat("Poche");
+
+        // je récupère l'entity manager de doctrine
+        $entityManager = $this->getDoctrine()->getManager();
+
+        // j'enregistre en base de donnée
+        $entityManager->persist($livre);
+        $entityManager->flush();
+
+        return $this->render("@App/Pages/livre.html.twig",
+            [
+                'livre' => $livre
+            ]);
+
     }
 }

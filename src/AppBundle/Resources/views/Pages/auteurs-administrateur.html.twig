@@ -1,4 +1,4 @@
-{% extends "@App/base.html.twig" %}
+{% extends "@App/baseAuteur.html.twig" %}
 
 {% block title %}Affichage Livres{% endblock %}
 
@@ -25,10 +25,10 @@
             <p>
                 {{ auteur.biographie }}
             </p>
-            <a href="{{ path('auteur_supp',  {'id': auteur.id}) }}">
+            <a href="{{ path('admin_auteur_supp',  {'id': auteur.id}) }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Supprimer</button>
             </a>
-            <hr>
+            <hr>admin_auteur_supp
         </a>
 
     {% endfor %}

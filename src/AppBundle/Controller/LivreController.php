@@ -20,30 +20,30 @@ use AppBundle\Repository\AuteurRepository;
 
 use Symfony\Component\Routing\Annotation\Route;
 
-class AuteurController extends Controller
+class LivreController extends Controller
 {
 
     /**
-     * @Route("/auteurs/{country}", name="country")
+     * @Route("/livres/{format}", name="livre_format")
      */
-    public function requestCountry($country){
+    public function requestCountry($format){
         /** @var $repository LivreRepository */
-        $repository = $this->getDoctrine()->getRepository(Auteur::class);
+        $repository = $this->getDoctrine()->getRepository(Livre::class);
 
         /*création d'une méthode spcifique pour une requête ciblé sur les pays -> voir Repository*/
-        /** @var $repository AuteurRepositoryRepository */
-        $auteurs = $repository->getAuteurByCountry($country);
+        /** @var $repository LivreRepositoryRepository */
+        $livres = $repository->getLivreByFormat($format);
         //var_dump($auteurs);die;
         //retourne la page html auteurs en utiliasnt le twig auteur.html.twig
-        return $this->render("@App/Pages/auteurs.html.twig",
+        return $this->render("@App/Pages/livre.html.twig",
             [
-                'auteurs' => $auteurs
+                'livres' => $livres
             ]);
     }
 
 
     /**
-     * @Route("/auteurs/ajoutauteur", name="ajout_auteur")
+     * @Route("/livres/ajoutlivre", name="ajout_livre")
      */
     public function registerAuthorAction(){
         // je récupère l'entity manager de doctrine

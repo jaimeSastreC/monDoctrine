@@ -92,27 +92,11 @@ class GeneralController extends Controller
         var_dump($livre); die;
     }
 
-    /**
-     * @Route("/auteurs/{country}", name="country")
-     */
-    public function requestCountry($country){
-        /** @var $repository LivreRepository */
-        $repository = $this->getDoctrine()->getRepository(Auteur::class);
 
-        /*création d'une méthode spcifique pour une requête ciblé sur les pays -> voir Repository*/
-        /** @var $repository AuteurRepositoryRepository */
-        $auteurs = $repository->getBooksByCountry($country);
-        //var_dump($auteurs);die;
-        //retourne la page html auteurs en utiliasnt le twig auteur.html.twig
-        return $this->render("@App/Pages/auteurs.html.twig",
-            [
-                'auteurs' => $auteurs
-            ]);
-    }
 
     //méthode puissante qui fait une recherche à partir d'un mot clé sur Twig> Form > name -> requete get
     /**
-     * @Route("/searchName", name="search_name")
+     * @Route("/auteurs/searchName", name="search_name")
      */
     public function searchName(Request $request){
         //Request $request crée l'objet, géré par Symfony

@@ -27,8 +27,9 @@ class Livre
     private $titre;
 
     // varcharacter
+
     /**
-     * @ORM\Column(type="string", length=100, name="auteur")
+     * @ORM/ManyToOne(targetEntity="AppBundle\Entity\Auteur")
      */
     private $auteur;
 
