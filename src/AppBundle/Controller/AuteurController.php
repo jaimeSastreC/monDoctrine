@@ -24,7 +24,7 @@ class AuteurController extends Controller
 {
 
     /**
-     * @Route("/ajoutauteur", name="ajout_auteur")
+     * @Route("/auteurs/ajoutauteur", name="ajout_auteur")
      */
     public function registerAuthorAction(){
         // je récupère l'entity manager de doctrine
@@ -44,6 +44,9 @@ class AuteurController extends Controller
         $entityManager->persist($auteur);
         $entityManager->flush();
 
-        return new Response("livre enregistré");
+        return $this->render("@App/Pages/auteur.html.twig",
+            [
+                'auteur' => $auteur
+            ]);
     }
 }

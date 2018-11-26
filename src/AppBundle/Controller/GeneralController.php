@@ -138,7 +138,7 @@ class GeneralController extends Controller
     // AJOUTER UNE LIGNE DANS BASE DE DONNE TABLE
 
     /**
-     * @Route("/ajoutlivre", name="ajout_livre")
+     * @Route("/auteurs/ajoutlivre", name="ajout_livre")
      * @return Response
      */
     public function ajouterLivreAction(){
@@ -160,9 +160,25 @@ class GeneralController extends Controller
         $entityManager->persist($livre);
         $entityManager->flush();
 
-        return new Response("livre enregistré");
+        return $this->render("@App/Pages/livre.html.twig",
+            [
+                'livre' => $livre
+            ]);
     }
 
+/*    /**
+     * @Route("/suprimmerlivre", name="livre_supp")
+     */
+    /*public function supprLivreAction(){
+        $repository = $this->getDoctrine()->getRepository(Livre::class);
+        $entityManager = $this->getDoctrine()->getManager();
 
+        $livre = $repository->find('11');
+
+        $entityManager->remove($livre);
+        $entityManager->flush();
+
+        return new Response('c\'est tout bon!');
+    }*/
 
 }

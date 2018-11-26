@@ -16,6 +16,9 @@ class LivreRepository extends \Doctrine\ORM\EntityRepository
                 ->where('l.genre =:genre')
                 ->setParameter('genre', $genre)
                 ->getQuery();
+
+
+
         $results = $query->getArrayResult();
         return $results;
     }
