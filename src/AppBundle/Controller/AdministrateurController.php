@@ -49,7 +49,7 @@ class AdministrateurController extends Controller
 
         // j'utilise les setters de mon entité pour y ajouter la valeur souhaité, attention champs obligatoires doivent être présents
         $auteur->setNom("titre depuis Controller");
-        $auteur->setDateNaissance(new \DateTime('1995-05-23'));
+        $auteur->setDateNaissance(new \Date('1995-05-23'));
         //$auteur->setDateMort();
         $auteur->setBiographie("Lorem ZZZZZZZZ");
         $auteur->setPays("pays");

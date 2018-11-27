@@ -5,10 +5,56 @@
 
 {% block contenu %}
 
-    {{ form_start(formauteur) }}
+    <div class="container">
+        <div class="row form-group">
+            <div class=" offset-3 col-5">
+                {{ form_start(formauteur, {'attr': {'class': 'd-block'}}) }}
+                <div class="form-group row">
 
-    {{ form_widget(formauteur, {'attr': {'class': 'form-inline'}}) }}
+                    {{ form_label(formauteur.nom, null, {'label_attr':  {'class': 'col-3 col-form-label'}}) }}
+                    <div class="col-sm-5">
+                        {{ form_widget(formauteur.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(formauteur.dateNaissance, null, {'label_attr':  {'class': 'col-3  col-form-label'}})}}
+                    <div class="col-sm-5">
+                        {{ form_widget(formauteur.dateNaissance, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
 
-    {{ form_end(formauteur) }}
+                <div class="form-group row">
+                    {{ form_label(formauteur.dateMort, null, {'label_attr':  {'class': 'col-3  col-form-label'}})}}
+                    <div class="col-sm-5">
+                        {{ form_widget(formauteur.dateMort, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(formauteur.biographie, null, {'label_attr':  {'class': 'col-3  col-form-label'}})}}
+                    <div class="col-sm-5">
+                        {{ form_widget(formauteur.biographie, {'attr': {'class': 'form-control', 'rows': '5'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    {{ form_label(formauteur.pays, null, {'label_attr':  {'class': 'col-3  col-form-label'}})}}
+                    <div class="col-sm-5">
+                        {{ form_widget(formauteur.pays, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group row">
+
+                    <div class="offset-3 col-sm-5">
+                        {{ form_widget(formauteur.save, {'attr': {'class': 'btn btn-primary'}}) }}
+                    </div>
+                </div>
+
+                {{ form_end(formauteur) }}
+            </div>
+        </div>
+    </div>
+
+
+
+    </div>
 
 {% endblock %}
