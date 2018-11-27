@@ -16,25 +16,25 @@ class LivreRepository extends \Doctrine\ORM\EntityRepository
                 ->where('l.genre =:genre')
                 ->setParameter('genre', $genre)
                 ->getQuery();
-
-        $results = $query->getArrayResult();
+//ATTENTION NE PAS UTILISER GETARRAY !!!!!
+        $results = $query->getResult();
         return $results;
     }
 
 
-    public function getAuteurByPays($genre){
+
+    public function getLivreByFormat($format){
 
         //var_dump('hello genre'); die;
-        $queryBuilder = $this->createQueryBuilder('a');
+        $queryBuilder = $this->createQueryBuilder('l');
 
         $query = $queryBuilder
-            ->select('a')
-            ->where('a.pays =:pays')
-            ->setParameter('genre', $genre)
+            ->select('l')
+            ->where('l.format =:format')
+            ->setParameter('format', $format)
             ->getQuery();
-        $results = $query->getArrayResult();
+        $results = $query->getResult();
         return $results;
     }
-
 
 }

@@ -2,37 +2,33 @@
 
 {% block title %}Affichage Livres{% endblock %}
 
-{#{% block contenu %}{{ dump(livres) }}{% endblock %}#}
 
 {% block contenu %}<h1>Liste des Livres</h1>
     <div class="container">
-<div class="row">
-<div class="text-align-center">
-    {# Liste les livres avec une boucle for #}
-    {% for livre in livres %}
+        <div class="row">
+            <div class="text-align-center">
+                {# Liste les livres avec une boucle for #}
+                {% for livre in livres %}
 
-        {# création du chemin href vers la page livre avec la méthode path et le placeholder 'id'
-        incrémenté par l'attribut id de livre #}
-        <a href="{{ path('livre', {'id': livre.id}) }}">
-           <p>
-               livre : {{ livre.titre }}
-           </p>
-            <p>
-                {# utilisation du filtre 'date' de Twig sur l'attribut date de livre #}
-                auteur: {{ livre.auteur}} &nbsp
-                nombre pages: {{ livre.pages}}
-                genre: {{ livre.genre}}
-                format: {{ livre.format}}
-            </p>
-            <p>
-                <a href="{{ path('country', {'country': livre.pays }) }}"> {{ livre.pays }}</a>
-            </p>
-            <hr>
-        </a>
+                    {# création du chemin href vers la page livre avec la méthode path et le placeholder 'id'
+                    incrémenté par l'attribut id de livre #}
+                    <a href="{{ path('livre', {'id': livre.id}) }}">
+                       <p>
+                           livre : {{ livre.titre }}
+                       </p>
+                        <p>
+                            {# utilisation du filtre 'date' de Twig sur l'attribut date de livre #}
+                            auteur: {{ livre.auteur.nom}} &nbsp
+                            nombre pages: {{ livre.pages}}
+                            genre: {{ livre.genre}}
+                            format: {{ livre.format}}
+                        </p>
+                        <hr>
+                    </a>
 
-    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
-</div>
-</div>
-    </div>
+
 {% endblock %}

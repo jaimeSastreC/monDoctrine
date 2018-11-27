@@ -6,7 +6,6 @@
  * Time: 14:11
  */
 
-namespace AppBundle\Controller;
 
 namespace AppBundle\Controller;
 
@@ -22,20 +21,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LivreController extends Controller
 {
+    /**
+     * @Route("/livre/{id}", name="livre")
+     * */
+    public function livreAction($id){
+        // cherche un livre avec instance de getDoctrine -> méthode get Repository
+        // puis ->find( un livre
+        //var_dump('test'); die;
+        $repository = $this->getDoctrine()->getRepository(Livre::class);
+        $livre = $repository->find($id);
+        return $this->render("@App/Pages/livre.html.twig",
+            [
+                'livre' => $livre
+            ]);
+    }
 
     /**
-     * @Route("/livres/{format}", name="livre_format")
+     * @Route("/livres" , name="livres")
      */
-    public function requestCountry($format){
-        /** @var $repository LivreRepository */
-        $repository = $this->getDoctrine()->getRepository(Livre::class);
+    public function listLivresAction(){
 
-        /*création d'une méthode spcifique pour une requête ciblé sur les pays -> voir Repository*/
-        /** @var $repository LivreRepositoryRepository */
-        $livres = $repository->getLivreByFormat($format);
-        //var_dump($auteurs);die;
+        // cherche tous les livres avec instance de getDoctrine -> méthode get Repository
+        $livresRepository = $this->getDoctrine()->getRepository(Livre::class);
+
+        //appel de l'ensemble des livres
+        $livres = $livresRepository->findAll();
+
         //retourne la page html auteurs en utiliasnt le twig auteur.html.twig
-        return $this->render("@App/Pages/livre.html.twig",
+        return $this->render("@App/Pages/livres.html.twig",
             [
                 'livres' => $livres
             ]);
@@ -43,29 +56,42 @@ class LivreController extends Controller
 
 
     /**
-     * @Route("/livres/ajoutlivre", name="ajout_livre")
+     * @Route("/livres/{genre}", name="livres_genre")
+     * */
+/*    public function requestGenreAction($genre){
+        // cherche un livre avec where genre == (genre} ; méthode : Repository
+        // puis ->find( un livre
+        //var_dump('test'); die;
+
+        /** @var $repository LivreRepository */
+   /*     $repository = $this->getDoctrine()->getRepository(Livre::class);
+
+        $livre = $repository->getBooksByGenre($genre);
+
+        var_dump($livre); die;
+    }*/
+
+    /**
+     * @Route("/livres/{format}", name="livres_format")
      */
-    public function registerAuthorAction(){
-        // je récupère l'entity manager de doctrine
-        $entityManager = $this->getDoctrine()->getManager();
+    public function requeteLivresAction($format){
 
-        // je créé une nouvelle instance de l'entité livre, pour créer un livre entity
-        $auteur = new Auteur();
+        /** @var $repository LivreRepository */
+        $livreRepository = $this->getDoctrine()->getRepository(Livre::class);
 
-        // j'utilise les setters de mon entité pour y ajouter la valeur souhaité, attention champs obligatoires doivent être présents
-        $auteur->setNom("titre depuis Controller");
-        $auteur->setDateNaissance(new \DateTime('1995-05-23'));
-        //$auteur->setDateMort();
-        $auteur->setBiographie("Lorem ZZZZZZZZ");
-        $auteur->setPays("pays");
+        /*création d'une méthode spcifique pour une requête ciblé sur les pays -> voir Repository*/
+        /** @var $repository LivreRepositoryRepository */
+        $livres = $livreRepository->getLivreByFormat($format);
 
-        // j'enregistre en base de donnée
-        $entityManager->persist($auteur);
-        $entityManager->flush();
-
-        return $this->render("@App/Pages/auteur.html.twig",
+        //var_dump($livres);die;
+        //retourne la page html auteurs en utiliasnt le twig auteur.html.twig
+        return $this->render("@App/Pages/livres.html.twig",
             [
-                'auteur' => $auteur
+                'livres' => $livres
             ]);
     }
+
+
+
+
 }

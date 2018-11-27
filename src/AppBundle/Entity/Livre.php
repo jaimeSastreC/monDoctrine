@@ -27,9 +27,9 @@ class Livre
     private $titre;
 
     // varcharacter
-
+    //lien many to one création clé étrangère
     /**
-     * @ORM/ManyToOne(targetEntity="AppBundle\Entity\Auteur")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Auteur", inversedBy="livre")
      */
     private $auteur;
 

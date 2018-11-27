@@ -19,7 +19,7 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
             ->where('a.pays =:pays')
             ->setParameter('pays', $country)
             ->getQuery();
-        $results = $query->getArrayResult();
+        $results = $query->getResult();
         return $results;
     }
 
@@ -33,7 +33,7 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
             ->where('a.biographie LIKE :biographie')
             ->setParameter('biographie', '%'.$name.'%')
             ->getQuery();
-        $results = $query->getArrayResult();
+        $results = $query->getResult();
         return $results;
 
     }

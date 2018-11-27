@@ -14,10 +14,10 @@
 <body>
 <header>
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="{{path('auteurs')}}">Menu Livres</a>
+        <a class="navbar-brand" href="{{path('livres')}}">Menu Livres</a>
         <div>
-            <a href="{{ path('livre_format', {'format': 'poche'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Poche</a>
-            <a href="{{ path('livre_format', {'format': 'gallimard'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Gallimard</a>
+            <a href="{{ path('livres_format', {'format': 'poche'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Poche</a>
+            <a href="{{ path('livres_format', {'format': 'Gallimard'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Gallimard</a>
         </div>
         <div class="p-5">
             <form class="form-inline" method="get" action="{{ path('search_name') }}">

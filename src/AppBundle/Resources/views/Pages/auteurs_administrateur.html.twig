@@ -25,10 +25,13 @@
             <p>
                 {{ auteur.biographie }}
             </p>
-            <a href="{{ path('admin_auteur_supp',  {'id': auteur.id}) }}">
+            <a href="{{ path('admin_supp_auteur',  {'id': auteur.id}) }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Supprimer</button>
             </a>
-            <hr>admin_auteur_supp
+            <a href="{{ path('admin_modif_auteur',  {'id': auteur.id}) }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Modifier</button>
+            </a>
+            <hr>
         </a>
 
     {% endfor %}

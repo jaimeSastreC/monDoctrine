@@ -23,5 +23,13 @@
             {{ auteur.biographie }}
         </p>
         <hr>
-
+        <p>
+            {% for livre in auteur.livre %}
+                <a href="{{path('livres')}}">{{ livre.titre }}</a>
+            {% endfor %}
+        </p>
+        <p>
+            <a href="{{ path('admin_modif_auteur', {'id': '38'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Modifier</a>
+        </p>
+    {#admin_modif_auteur#}
 {% endblock %}

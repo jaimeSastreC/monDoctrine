@@ -1,0 +1,48 @@
+{% extends "@App/baseLivre.html.twig" %}
+
+{% block title %}Affichage Livres{% endblock %}
+
+{#{% block contenu %}{{ dump(auteurs) }}{% endblock %}#}
+
+{% block contenu %}<h1>Liste des Livres</h1>
+    <div class="container">
+<div class="row">
+<div class="text-align-center">
+    {# Liste les auteurs avec une boucle for #}
+    {% for livre in livres %}
+
+        {# création du chemin href vers la page livre avec la méthode path et le placeholder 'id'
+    incrémenté par l'attribut id de livre #}
+        <a href="{{ path('livre', {'id': livre.id}) }}">
+            <p>
+                livre : {{ livre.titre }}
+            </p>
+            <p>
+                {# utilisation du filtre 'date' de Twig sur l'attribut date de livre #}
+                auteur: {{ livre.auteur.nom}} &nbsp
+                nombre pages: {{ livre.pages}}
+                genre: {{ livre.genre}}
+                format: {{ livre.format}}
+            </p>
+            <hr>
+        </a>
+            <a href="{{ path('admin_supp_livre',  {'id': livre.id}) }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Supprimer</button>
+            </a>
+            <a href="{{ path('admin_modif_livre',  {'id': livre.id}) }}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Modifier</button>
+            </a>
+            <hr>
+        </a>
+
+    {% endfor %}
+    </div>
+</div>
+</div>
+    </div>
+{% endblock %}
+
+{% for livre in livres %}
+
+
+{% endfor %}
