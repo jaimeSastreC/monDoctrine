@@ -1,0 +1,14 @@
+{% extends "@App/baseAuteur.html.twig" %}
+
+
+
+
+{% block contenu %}
+
+    {{ form_start(formauteur) }}
+
+    {{ form_widget(formauteur, {'attr': {'class': 'form-inline'}}) }}
+
+    {{ form_end(formauteur) }}
+
+{% endblock %}

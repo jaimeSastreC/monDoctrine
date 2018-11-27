@@ -1,6 +1,13 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lapiscine
+ * Date: 27/11/2018
+ * Time: 13:36
+ */
 
 namespace AppBundle\Entity;
+
 
 /*classe Mapping*/
 use Doctrine\ORM\Mapping as ORM;
@@ -9,7 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AuteurRepository")
  * @ORM\Table(name="auteur")
  */
-class Auteur
+
+class Auteur2
 {
 
     //Id est la clé primaire !!! Annotation qui aide à gérer tables Doctrine
@@ -47,6 +55,11 @@ class Auteur
     private $pays;
 
 
+    //relation vers livres
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Livre", mappedBy="auteur")
+     */
+    private $livre;
 
     /**
      * @return mixed
@@ -136,6 +149,22 @@ class Auteur
     public function setPays($pays)
     {
         $this->pays = $pays;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLivre()
+    {
+        return $this->livre;
+    }
+
+    /**
+     * @param mixed $livre
+     */
+    public function setLivre($livre)
+    {
+        $this->livre = $livre;
     }
 
 }

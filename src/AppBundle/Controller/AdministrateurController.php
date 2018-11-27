@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\AuteurType;
+use AppBundle\Form\LivreType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -211,6 +213,38 @@ class AdministrateurController extends Controller
 
         // Important : redirige vers la route demandée, avec name = 'auteurs_administrateur'
         return $this->redirectToRoute('admin_livres');
+    }
+
+/**************************************FORM***************************************************/
+
+    /**
+     * @Route("/admin/ajout_livre_form", name="admin_form_ajout_livre")
+     */
+    public function ajoutLivreFormatAction(){
+        //création entité LivreType
+        $form = $this->createForm(LivreType::class, new Livre());
+
+        return $this->render(
+            '@App/Pages/livre_ajout_administrateur.html.twig',
+            [
+                'formlivre' => $form->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/admin/ajout_auteur_form", name="admin_form_ajout_auteur")
+     */
+    public function ajoutAuteurFormatAction(){
+        //création entité LivreType
+        $form = $this->createForm(AuteurType::class, new Auteur());
+
+        return $this->render(
+            '@App/Pages/auteur_ajout_administrateur.html.twig',
+            [
+                'formauteur' => $form->createView()
+            ]
+        );
     }
 
 

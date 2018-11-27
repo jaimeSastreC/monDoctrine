@@ -1,15 +1,20 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lapiscine
+ * Date: 27/11/2018
+ * Time: 13:37
+ */
 
 namespace AppBundle\Entity;
-
-/*classe Mapping*/
-use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\LivreRepository")
  * @ORM\Table(name="livre")
  */
-class Livre
+
+
+class Livre2
 {
 
     //Id est la clé primaire !!! Annotation qui aide à gérer tables Doctrine
@@ -26,8 +31,10 @@ class Livre
      */
     private $titre;
 
+    // varcharacter
+    //lien many to one création clé étrangère
     /**
-     * @ORM\Column(type="string", length=100, name="auteur")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Auteur", inversedBy="livre")
      */
     private $auteur;
 

@@ -31,8 +31,8 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
         $query = $queryBuilder
             ->select('a')
             ->where('a.biographie LIKE :biographie')
-            ->setParameter('biographie', '%'.$name.'%')
-            ->getQuery();
+            ->setParameter('biographie', '%'.$name.'%') // sécurité injection !!!
+            ->getQuery(); /// important ! à ajouter
         $results = $query->getResult();
         return $results;
 

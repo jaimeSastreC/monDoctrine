@@ -41,6 +41,7 @@ class AuteurController extends Controller
             ]);
     }
 
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     //méthode puissante qui fait une recherche à partir d'un mot clé sur Twig> Form > name -> requete get
     /**
      * @Route("/auteurs/searchName", name="search_name")
@@ -55,6 +56,7 @@ class AuteurController extends Controller
         /** @var $repository LivreRepository */
         $repository = $this->getDoctrine()->getRepository(Auteur::class);
 
+        // méthode crée puissante => voir repository!!
         $auteurs = $repository->getNameBiography($name);
 
         //var_dump($auteurs);die;
