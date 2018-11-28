@@ -227,23 +227,35 @@ class AdministrateurController extends Controller
      */
     public function ajoutLivreFormatAction(Request $request){
         //création entité LivreType
-        $form = $this->createForm(LivreType::class, find());
+        $form = $this->createForm(LivreType::class, new Livre);
 
         // associe les données envoyées (éventuellement) par le client via le formulaire
         //à notre variable $form. Donc la variable $form contient maitnenant aussi de $_POST
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
-            $livre = $form->getData();
-            // je récupère l'entity manager de doctrine
-            $entityManager = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted()){
+            if ($form->isValid()){
+                $livre = $form->getData();
+                // je récupère l'entity manager de doctrine
+                $entityManager = $this->getDoctrine()->getManager();
 
-            // j'enregistre en base de donnée
-            $entityManager->persist($livre);
-            $entityManager->flush();
+                // j'enregistre en base de donnée
+                $entityManager->persist($livre);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('admin_livres');
+        // Renvoi de confirmation d'enregistrement Message flash
+                $this->addFlash(
+                    'notice',
+                    'Votre Livre a bien été ajouté!'
+                );
+                return $this->redirectToRoute('admin_livres');
+            } else {
+                $this->addFlash(
+                    'notice',
+                    'Votre Livre n\'a pas été enregitré, erreur!'
+                );
+            }
         }
 
 
@@ -267,21 +279,23 @@ class AdministrateurController extends Controller
         $livre = $repository->find($id);
 
 
-        //recherche livre entité LivreType
+        //recherche livre entité Livre existant, puis créé la forme
         $form = $this->createForm(LivreType::class, $livre);
 
         // associe les données envoyées (éventuellement) par le client via le formulaire
-        //à notre variable $form. Donc la variable $form contient maitnenant aussi de $_POST
-
+        //à notre variable $form. Donc la variable $form contient maintenant aussi de $_POST
+        //handlerequest reremplit le formulaire, récupère données et les reinjecte dans formulaire
         $form->handleRequest($request);
-
+        //isSubmitted vérifie si il y a bien un contenu form envoyé, puis on regarde si valide (à compléter plus tard)
         if ($form->isSubmitted() && $form->isValid()){
+            //recupère, extrait données sous forme d'entité
             $livre = $form->getData();
             // je récupère l'entity manager de doctrine
             $entityManager = $this->getDoctrine()->getManager();
 
-            // j'enregistre en base de donnée
+            // j'enregistre en base de donnée, persist met dans zone tampon provisoire de l'unité de travail
             $entityManager->persist($livre);
+            //mise à jour BD, envoy à bd
             $entityManager->flush();
 
             return $this->redirectToRoute('admin_livres');
@@ -299,9 +313,27 @@ class AdministrateurController extends Controller
     /**
      * @Route("/admin/ajout_auteur_form", name="admin_form_ajout_auteur")
      */
-    public function ajoutAuteurFormatAction(){
+    public function ajoutAuteurFormatAction(Request $request){
+
         //création entité LivreType
         $form = $this->createForm(AuteurType::class, new Auteur());
+
+        // associe les données envoyées (éventuellement) par le client via le formulaire
+        //à notre variable $form. Donc la variable $form contient maitnenant aussi de $_POST
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $auteur = $form->getData();
+            // je récupère l'entity manager de doctrine
+            $entityManager = $this->getDoctrine()->getManager();
+
+            // j'enregistre en base de donnée
+            $entityManager->persist($auteur);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_auteurs');
+        }
 
         return $this->render(
             '@App/Pages/auteur_ajout_administrateur.html.twig',

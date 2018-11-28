@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 /*classe Mapping*/
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\LivreRepository")
@@ -23,6 +24,12 @@ class Livre
     // varcharacter
     /**
      * @ORM\Column(type="string", length=100, name="titre")
+     *  @Assert\Length(
+     *  min = 3,
+     *  max = 50,
+     * minMessage = "Your first name must be at least {{ limit }} characters long",
+     * maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      */
     private $titre;
 
@@ -35,17 +42,38 @@ class Livre
 
     /**
      * @ORM\Column(type="integer", name="pages")
+     *
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
+     * @Assert\GreaterThan(
+     *     value = 5,
+     *     message="The value {{ value }} must be greater than {{ compared_value }}."
+     *     )
      * */
     private $pages;
 
 
     /**
      * @ORM\Column(type="string", length=100, name="genre")
+     *  *  @Assert\Length(
+     *  min = 3,
+     *  max = 20,
+     * minMessage = "Your first name must be at least {{ limit }} characters long",
+     * maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      * */
     private $genre;
 
     /**
      * @ORM\Column(type="string", length=100, name="format")
+     *  *  @Assert\Length(
+     *  min = 3,
+     *  max = 10,
+     * minMessage = "Your first name must be at least {{ limit }} characters long",
+     * maxMessage = "Your first name cannot be longer than {{ limit }} characters"
+     * )
      * */
     private $format;
 

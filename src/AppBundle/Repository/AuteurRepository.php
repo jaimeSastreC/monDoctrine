@@ -37,6 +37,11 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
         return $results;
 
     }
+
+    public function findAll()
+    {
+        return $this->findBy(array(), array('nom' => 'ASC'));
+    }
     //https://symfonycasts.com/screencast/doctrine-queries/and-where-or-where
     /*public function search($term)
     {

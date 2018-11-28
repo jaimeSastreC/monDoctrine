@@ -16,6 +16,7 @@
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand" href="{{path('auteurs')}}">Menu Auteurs</a>
         <div>
+            <a href="{{ path('admin_form_ajout_auteur') }}" class="btn btn-secondary btn-lg active mr-2" role="button" aria-pressed="true">Nouvel Auteur</a>
             <a href="{{ path('country', {'country': 'Belgium'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Belgique</a>
             <a href="{{ path('country', {'country': 'Great Britain'}) }}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Grande Bretagne</a>
         </div>

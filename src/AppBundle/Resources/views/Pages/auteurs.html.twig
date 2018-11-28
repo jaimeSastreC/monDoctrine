@@ -28,6 +28,11 @@
             <p>
                 {{ auteur.pays }}
             </p>
+            <p>
+                {% for livre in auteur.livre%}
+                    ouvrage : {{ livre.titre }}
+                {% endfor %}
+            </p>
             <hr>
         </a>
 

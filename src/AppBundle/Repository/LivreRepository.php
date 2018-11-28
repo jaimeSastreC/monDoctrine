@@ -22,7 +22,6 @@ class LivreRepository extends \Doctrine\ORM\EntityRepository
     }
 
 
-
     public function getLivreByFormat($format){
 
         //var_dump('hello genre'); die;
@@ -35,6 +34,11 @@ class LivreRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery();
         $results = $query->getResult();
         return $results;
+    }
+
+    public function findAll()
+    {
+        return $this->findBy(array(), array('titre' => 'ASC'));
     }
 
 }
