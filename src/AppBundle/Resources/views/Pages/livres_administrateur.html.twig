@@ -19,7 +19,11 @@
             </p>
             <p>
                 {# utilisation du filtre 'date' de Twig sur l'attribut date de livre #}
-                auteur: {{ livre.auteur.nom}} &nbsp
+                {% if livre.auteur %}
+                    auteur: {{ livre.auteur.nom}} &nbsp
+                {% else %}
+                    pas d'auteur pour ce livre, vérifiez ... &nbsp
+                {% endif %}
                 nombre pages: {{ livre.pages}}
                 genre: {{ livre.genre}}
                 format: {{ livre.format}}
@@ -29,7 +33,7 @@
             <a href="{{ path('admin_supp_livre',  {'id': livre.id}) }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Supprimer</button>
             </a>
-            <a href="{{ path('admin_modif_livre',  {'id': livre.id}) }}">
+            <a href="{{ path('admin_form_modif_livre',  {'id': livre.id}) }}">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Modifier</button>
             </a>
             <hr>

@@ -61,7 +61,8 @@ class AdministrateurController extends Controller
         return $this->render("@App/Pages/auteur.html.twig",
             [
                 'auteur' => $auteur
-            ]);
+            ]
+        );
     }
 
     /**
@@ -86,7 +87,8 @@ class AdministrateurController extends Controller
         return $this->render("@App/Pages/auteur.html.twig",
             [
                 'auteur' => $auteur
-            ]);
+            ]
+        );
     }
 
 
@@ -133,7 +135,7 @@ class AdministrateurController extends Controller
         );
     }
 
-
+    //modifié pour utiliser le form
     /**
      * @Route("/admin/ajoutlivre", name="admin_ajout_livre")
      * @return Response
@@ -145,7 +147,7 @@ class AdministrateurController extends Controller
         $auteurRepository = $this->getDoctrine()->getRepository(Auteur::class);
         $auteur= $auteurRepository->find(27);
 
-        // je créé une nouvelle instance de l'entité livre, pour créer un livre entity
+      // je créé une nouvelle instance de l'entité livre, pour créer un livre entity
         $livre = new Livre();
 
         // j'utilise les setters de mon entité pour y ajouter la valeur souhaité, attention champs obligatoires doivent être présents
@@ -154,6 +156,8 @@ class AdministrateurController extends Controller
         $livre->setPages(300);
         $livre->setGenre("polar");
         $livre->setFormat("Gallimard");
+
+
         //var_dump($livre);die;
         // j'enregistre en base de donnée
         $entityManager->persist($livre);
@@ -162,7 +166,8 @@ class AdministrateurController extends Controller
         return $this->render("@App/Pages/livre.html.twig",
             [
                 'livre' => $livre
-            ]);
+            ]
+        );
     }
 
 
@@ -220,9 +225,68 @@ class AdministrateurController extends Controller
     /**
      * @Route("/admin/ajout_livre_form", name="admin_form_ajout_livre")
      */
-    public function ajoutLivreFormatAction(){
+    public function ajoutLivreFormatAction(Request $request){
         //création entité LivreType
-        $form = $this->createForm(LivreType::class, new Livre());
+        $form = $this->createForm(LivreType::class, find());
+
+        // associe les données envoyées (éventuellement) par le client via le formulaire
+        //à notre variable $form. Donc la variable $form contient maitnenant aussi de $_POST
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $livre = $form->getData();
+            // je récupère l'entity manager de doctrine
+            $entityManager = $this->getDoctrine()->getManager();
+
+            // j'enregistre en base de donnée
+            $entityManager->persist($livre);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_livres');
+        }
+
+
+
+        return $this->render(
+            '@App/Pages/livre_ajout_administrateur.html.twig',
+            [
+                'formlivre' => $form->createView()
+            ]
+        );
+    }
+
+    /**
+     * @Route("/admin/modifier_livre_form/{id}", name="admin_form_modif_livre")
+     */
+    public function modifierLivreFormatAction(Request $request, $id){
+
+        // cherche un livre avec instance de getDoctrine -> méthode get Repository
+        // puis ->find( un livre )
+        $repository = $this->getDoctrine()->getRepository(Livre::class);
+        $livre = $repository->find($id);
+
+
+        //recherche livre entité LivreType
+        $form = $this->createForm(LivreType::class, $livre);
+
+        // associe les données envoyées (éventuellement) par le client via le formulaire
+        //à notre variable $form. Donc la variable $form contient maitnenant aussi de $_POST
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $livre = $form->getData();
+            // je récupère l'entity manager de doctrine
+            $entityManager = $this->getDoctrine()->getManager();
+
+            // j'enregistre en base de donnée
+            $entityManager->persist($livre);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_livres');
+        }
+
 
         return $this->render(
             '@App/Pages/livre_ajout_administrateur.html.twig',

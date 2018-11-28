@@ -18,7 +18,11 @@
                        </p>
                         <p>
                             {# utilisation du filtre 'date' de Twig sur l'attribut date de livre #}
-                            auteur: {{ livre.auteur.nom}} &nbsp
+                            {% if livre.auteur %}
+                                auteur: {{ livre.auteur.nom}} &nbsp
+                               {% else %}
+                                pas d'auteur pour ce livre, vérifiez ...&nbsp
+                            {% endif %}
                             nombre pages: {{ livre.pages}}
                             genre: {{ livre.genre}}
                             format: {{ livre.format}}
