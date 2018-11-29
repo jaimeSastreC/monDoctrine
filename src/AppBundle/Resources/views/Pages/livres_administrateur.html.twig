@@ -17,6 +17,11 @@
             <p>
                 livre : {{ livre.titre }}
             </p>
+            {% if livre.image %}
+                <img src="{{ asset('uploads/img/' ~ livre.image) }}" alt="{{ livre.titre }}">
+            {% else %}
+                emplacement image
+            {% endif %}
             <p>
                 {# utilisation du filtre 'date' de Twig sur l'attribut date de livre #}
                 {% if livre.auteur %}

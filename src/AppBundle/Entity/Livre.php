@@ -77,6 +77,12 @@ class Livre
      * */
     private $format;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+
+    private $image;
+
 
     /**
      * @return mixed
@@ -165,5 +171,22 @@ class Livre
     {
         $this->format = $format;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
 
 }

@@ -14,6 +14,14 @@
         Livre : {{ livre.titre }}
     </p>
     <p>
+        Image:
+        {% if livre.image %}
+            <img src="{{ asset('uploads/img/' ~ livre.image) }}" alt="{{ livre.titre }}">
+        {% else %}
+            emplacement image
+        {% endif %}
+    </p>
+    <p>
         <a href="{{path('auteurs')}}">auteur: {{ livre.auteur.nom}} &nbsp</a>
         nombre pages: {{ livre.pages}}&nbsp
         genre: {{ livre.genre}}&nbsp

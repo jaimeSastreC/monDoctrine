@@ -12,8 +12,9 @@ use AppBundle\Entity\Livre;
 use AppBundle\Repository\LivreRepository;
 use AppBundle\Repository\AuteurRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException; // try catch ajouter
+use Symfony\Component\HttpFoundation\File\File; // pour modifier image crée chemin
 
-//use Symfony\Component\Routing\Annotation\Route;
 
 class AdministrateurController extends Controller
 {
@@ -236,7 +237,24 @@ class AdministrateurController extends Controller
 
         if ($form->isSubmitted()){
             if ($form->isValid()){
+                //bien ajouter
                 $livre = $form->getData();
+                //créé file image méthode getImage
+                $file = $livre->getImage();
+                $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('img_directory'),
+                        $fileName
+                    );
+                } catch (FileException $e) {
+                    echo $e->getMessage();
+                    // ... handle exception if something happens during file upload
+                }
+                // important alimente nouveau nom fichier image
+                $livre->setImage($fileName);
+
                 // je récupère l'entity manager de doctrine
                 $entityManager = $this->getDoctrine()->getManager();
 
@@ -244,7 +262,7 @@ class AdministrateurController extends Controller
                 $entityManager->persist($livre);
                 $entityManager->flush();
 
-        // Renvoi de confirmation d'enregistrement Message flash
+                // Renvoi de confirmation d'enregistrement Message flash
                 $this->addFlash(
                     'notice',
                     'Votre Livre a bien été ajouté!'
@@ -257,8 +275,6 @@ class AdministrateurController extends Controller
                 );
             }
         }
-
-
 
         return $this->render(
             '@App/Pages/livre_ajout_administrateur.html.twig',
@@ -278,27 +294,85 @@ class AdministrateurController extends Controller
         $repository = $this->getDoctrine()->getRepository(Livre::class);
         $livre = $repository->find($id);
 
+        $oldImageName = $livre->getImage();
+
+        // tester si image existe, alors récupère entité livre
+        if ($livre->getImage()) {
+            $livre->setImage(
+                new File($this->getParameter('img_directory').'/'.$livre->getImage())
+            );
+        }
 
         //recherche livre entité Livre existant, puis créé la forme
         $form = $this->createForm(LivreType::class, $livre);
+
 
         // associe les données envoyées (éventuellement) par le client via le formulaire
         //à notre variable $form. Donc la variable $form contient maintenant aussi de $_POST
         //handlerequest reremplit le formulaire, récupère données et les reinjecte dans formulaire
         $form->handleRequest($request);
+
         //isSubmitted vérifie si il y a bien un contenu form envoyé, puis on regarde si valide (à compléter plus tard)
-        if ($form->isSubmitted() && $form->isValid()){
-            //recupère, extrait données sous forme d'entité
-            $livre = $form->getData();
-            // je récupère l'entity manager de doctrine
-            $entityManager = $this->getDoctrine()->getManager();
 
-            // j'enregistre en base de donnée, persist met dans zone tampon provisoire de l'unité de travail
-            $entityManager->persist($livre);
-            //mise à jour BD, envoy à bd
-            $entityManager->flush();
+        if ($form->isSubmitted()){
+            if ($form->isValid()){
 
-            return $this->redirectToRoute('admin_livres');
+                if ( $livre->getImage() !== NULL ) {
+
+                    $livre = $form->getData();
+
+                    // créé file avec getImage
+
+                    $file = $livre->getImage();
+
+                    $fileName = md5(uniqid()).'.'.$file->guessExtension();
+
+
+                    try {
+                        $file->move(
+                            $this->getParameter('img_directory'),
+                            $fileName
+                        );
+                    } catch (FileException $e) {
+                        echo $e->getMessage();
+                        // ... handle exception if something happens during file upload
+                    }
+
+                    // important alimente modificatio !!!!!! chemin vers image
+                    //$livre->setImage($fileName);
+
+                    $livre->setImage(
+                        $fileName
+                    );
+
+                } else {
+                    // si pas de changement on recupère l'ancien nom et setImage
+                    $livre->setImage($oldImageName);
+                }
+
+
+                // je récupère l'entity manager de doctrine
+                $entityManager = $this->getDoctrine()->getManager();
+
+
+                // j'enregistre en base de donnée, persist met dans zone tampon provisoire de l'unité de travail
+                $entityManager->persist($livre);
+                //mise à jour BD, envoy à bd
+                $entityManager->flush();
+
+                // Renvoi de confirmation d'enregistrement Message flash
+                $this->addFlash(
+                    'notice',
+                    'Votre Livre a bien été ajouté!'
+                );
+
+                return $this->redirectToRoute('admin_livres');
+            } else {
+                $this->addFlash(
+                    'notice',
+                    'Votre Livre n\'a pas été enregitré, erreur!'
+                );
+            }
         }
 
 
