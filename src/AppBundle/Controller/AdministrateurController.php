@@ -23,8 +23,9 @@ class AdministrateurController extends Controller
      * @Route("/admin/auteurs" , name="admin_auteurs")
      */
     public function listAdminAuteursAction(){
+
         // cherche tous les auteur avec instance de getDoctrine -> méthode get Repository
-        // puis ->findAll  tous les livres
+        // puis ->findAll  tous les auteurs
 
         $repository = $this->getDoctrine()->getRepository(Auteur::class);
 
@@ -50,7 +51,7 @@ class AdministrateurController extends Controller
 
         // j'utilise les setters de mon entité pour y ajouter la valeur souhaité, attention champs obligatoires doivent être présents
         $auteur->setNom("titre depuis Controller");
-        $auteur->setDateNaissance(new \Date('1995-05-23'));
+        $auteur->setDateNaissance(new \Date('1995-05-23')); //TODO voir classe Date
         //$auteur->setDateMort();
         $auteur->setBiographie("Lorem ZZZZZZZZ");
         $auteur->setPays("pays");

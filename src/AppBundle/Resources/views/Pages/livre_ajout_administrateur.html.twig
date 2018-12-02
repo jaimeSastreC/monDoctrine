@@ -42,6 +42,7 @@
                 </div>
 
                 <div class="form-group row">
+                    {#Important!!! cherche méthode auteur de l'Entity Auteur, écriture simple car form.livre connaît les méthodes auteur#}
                     {{ form_label(formlivre.auteur, null, {'label_attr':  {'class': 'col-3  col-form-label'}})}}
                     <div class="col-sm-5">
                         {{ form_widget(formlivre.auteur, {'attr': {'class': 'form-control'}}) }}
