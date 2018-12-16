@@ -80,7 +80,7 @@ class LivreController extends Controller
         $livreRepository = $this->getDoctrine()->getRepository(Livre::class);
 
         /*création d'une méthode spcifique pour une requête ciblé sur les pays -> voir Repository*/
-        /** @var $repository LivreRepositoryRepository */
+        /** @var $repository LivreRepository */
         $livres = $livreRepository->getLivreByFormat($format);
 
         //var_dump($livres);die;

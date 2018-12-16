@@ -27,6 +27,16 @@
             </form>
         </div>
     </nav>
+    <div class="alert alert-info text-center" role="alert">
+        {# ...or you can read and display every flash message available #}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
     <h1>Doctrine</h1>
     <div>
         {% block contenu %}contenu{% endblock %}

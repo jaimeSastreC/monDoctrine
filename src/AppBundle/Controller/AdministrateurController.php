@@ -136,8 +136,7 @@ class AdministrateurController extends Controller
             ]
         );
     }
-
-    //modifié pour utiliser le form
+    
     /**
      * @Route("/admin/ajoutlivre", name="admin_ajout_livre")
      * @return Response
@@ -304,12 +303,12 @@ class AdministrateurController extends Controller
             );
         }
 
-        //recherche livre entité Livre existant, puis créé la forme
+        //recherche entité Livre existant, puis créé la forme
         $form = $this->createForm(LivreType::class, $livre);
 
 
         // associe les données envoyées (éventuellement) par le client via le formulaire
-        //à notre variable $form. Donc la variable $form contient maintenant aussi de $_POST
+        //à notre variable $form. Donc la variable $form contient maintenant aussi $_POST
         //handlerequest reremplit le formulaire, récupère données et les reinjecte dans formulaire
         $form->handleRequest($request);
 

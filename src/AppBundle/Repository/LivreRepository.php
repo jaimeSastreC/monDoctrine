@@ -21,7 +21,10 @@ class LivreRepository extends \Doctrine\ORM\EntityRepository
         return $results;
     }
 
-
+    /**
+     * @param $format
+     * @return array
+     */
     public function getLivreByFormat($format){
 
         //var_dump('hello genre'); die;

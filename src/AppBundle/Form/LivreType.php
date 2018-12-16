@@ -68,6 +68,4 @@ class LivreType extends AbstractType
     {
         return 'appbundle_livre';
     }
-
-
 }

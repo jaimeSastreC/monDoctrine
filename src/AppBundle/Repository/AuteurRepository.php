@@ -35,7 +35,6 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery(); /// important ! à ajouter
         $results = $query->getResult();
         return $results;
-
     }
 
     public function findAll()
@@ -51,6 +50,4 @@ class AuteurRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->execute();
     }*/
-
-
 }

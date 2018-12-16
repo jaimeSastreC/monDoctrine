@@ -96,7 +96,7 @@ class AuteurController extends Controller
         $repository = $this->getDoctrine()->getRepository(Auteur::class);
 
         /*création d'une méthode spcifique pour une requête ciblé sur les pays -> voir Repository*/
-        /** @var $repository AuteurRepositoryRepository */
+        /** @var $repository AuteurRepository */
         $auteurs = $repository->getAuteurByCountry($country);
         //var_dump($auteurs);die;
         //retourne la page html auteurs en utiliasnt le twig auteur.html.twig
